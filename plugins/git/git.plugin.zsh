@@ -55,10 +55,12 @@ alias gbd='git branch -d'
 alias gbda='git branch --no-color --merged | command grep -vE "^(\+|\*|\s*($(git_main_branch)|development|develop|devel|dev)\s*$)" | command xargs -n 1 git branch -d'
 alias gbD='git branch -D'
 function gbdp() {
+  # git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -d
   git branch -vv | grep ': gone]' | awk '{print $1}' |
   xargs -L1 bash -c 'if [ "$0" == "*" ]; then echo "Your current working branch was not deleted: "; git branch --show-current; else git branch -d $0; fi'
 }
 function gbdpf() {
+  # git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D
   git branch -vv | grep ': gone]' | awk '{print $1}' |
   xargs -L1 bash -c 'if [ "$0" == "*" ]; then echo "Your current working branch was not deleted: "; git branch --show-current; else git branch -D $0; fi'
 }
